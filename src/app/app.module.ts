@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BordOfGameComponent } from './bord-of-game/bord-of-game.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BordOfGameComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
