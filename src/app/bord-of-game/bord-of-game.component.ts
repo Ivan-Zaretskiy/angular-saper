@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BordOfGameComponent implements OnInit {
   public title: string = 'board';
+  public sizeGame: number = 16;
   constructor() { }
 
   ngOnInit(): void {

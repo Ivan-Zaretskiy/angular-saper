@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BordOfGameComponent } from './bord-of-game/bord-of-game.component';
+import { BombComponent } from './bomb/bomb.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BordOfGameComponent
+    BordOfGameComponent,
+    BombComponent
   ],
   imports: [
     BrowserModule,
