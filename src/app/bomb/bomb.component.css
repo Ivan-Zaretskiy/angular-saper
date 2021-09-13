@@ -1,6 +1,24 @@
 .bomb_area{
-    width: 20px;
-    height: 20px;
-    align-items: center;
-    border: 1px solid black;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+.count-text {
+    position: relative;
+    color: blue;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.hidden-mode {
+    border: 3px outset black;
+    background-image: none;
+    background-color: #bbbbbb;
+}
+.visible-mode {
+    font-size: 15px;
+    border: 3px solid black;
+    background-image: none;
+    border-color: #e6e6e6;
 }

@@ -9,6 +9,7 @@ import {BombPosition, gameStatus} from '../bomb-position/bomb-position';
 export class BordOfGameComponent implements OnInit,AfterViewInit {
     public title: string = 'board';
     public sizeGame: number = 16;
+    public bombCount = 32;
     public gameStatus:gameStatus = gameStatus.Start
     // @ViewChildren("bomb") public BombList: QueryList<BombComponent>;
 
@@ -20,11 +21,29 @@ export class BordOfGameComponent implements OnInit,AfterViewInit {
     ngOnInit(): void {
     }
 
-    leftClickElem($event: BombPosition) {
-        console.log($event);
+    leftClickElem(bombPos: BombPosition) {
+        if (this.gameStatus == gameStatus.Start){
+            let bombs : BombPosition[] = this.randomBombForStart(bombPos);
+            console.log(bombs);
+        }
     }
 
     rightClickElem($event: BombPosition) {
-        console.log($event);
+        console.log('right');
+    }
+
+    randomBombForStart(bombPos: BombPosition) : BombPosition[]{
+        const bombs: BombPosition[] = [];
+        while (bombs.length < this.bombCount){
+            let bombElem: BombPosition;
+            do {
+                bombElem = new BombPosition(
+                    Math.floor(Math.random() * this.sizeGame),
+                    Math.floor(Math.random() * this.sizeGame)
+                );
+            } while(bombs.findIndex(bomb => bomb.existIn(bombElem)) >= 0)
+            bombs.push(bombElem);
+        }
+        return bombs;
     }
 }
