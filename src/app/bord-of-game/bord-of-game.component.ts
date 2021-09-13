@@ -1,16 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit,QueryList,ViewChildren} from '@angular/core';
+import {BombPosition, gameStatus} from '../bomb-position/bomb-position';
 
 @Component({
-  selector: 'app-bord-of-game',
-  templateUrl: './bord-of-game.component.html',
-  styleUrls: ['./bord-of-game.component.css']
+    selector: 'app-bord-of-game',
+    templateUrl: './bord-of-game.component.html',
+    styleUrls: ['./bord-of-game.component.css']
 })
-export class BordOfGameComponent implements OnInit {
-  public title: string = 'board';
-  public sizeGame: number = 16;
-  constructor() { }
+export class BordOfGameComponent implements OnInit,AfterViewInit {
+    public title: string = 'board';
+    public sizeGame: number = 16;
+    public gameStatus:gameStatus = gameStatus.Start
+    // @ViewChildren("bomb") public BombList: QueryList<BombComponent>;
 
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
+    public ngAfterViewInit(): void {
 
+    }
+    ngOnInit(): void {
+    }
+
+    leftClickElem($event: BombPosition) {
+        console.log($event);
+    }
+
+    rightClickElem($event: BombPosition) {
+        console.log($event);
+    }
 }

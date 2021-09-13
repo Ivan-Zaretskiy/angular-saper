@@ -1,7 +1,7 @@
 .bg-game {
-  height: 100vh;
-  min-height: 700px;
-  width: 100vw;
-  min-width: 700px;
+    height: 100vh;
+    min-height: 700px;
+    width: 100vw;
+    min-width: 700px;
     background-color: #c9a3a3;
 }

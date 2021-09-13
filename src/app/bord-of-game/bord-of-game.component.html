@@ -1,10 +1,8 @@
 <div id="gameZone" class="d-flex">
     <div class="row-bomb" *ngFor="let row_bombs of [].constructor(sizeGame); let x = index">
-        <div class="bomb-place d-flex" style="padding: 3px" *ngFor="let elem_bomb of [].constructor(sizeGame); let y = index">
-<!--            <app-bomb [position]="[x,y]">-->
-
-<!--            </app-bomb>-->
-            <app-bomb style="padding: 2px"></app-bomb>
+        <div class="bomb-place d-flex" style="padding: 3px" *ngFor="let column_bomb of [].constructor(sizeGame); let y = index">
+            <app-bomb  [position]="[x, y]" (EventOnLeftClick)="leftClickElem($event)" (EventOnRightClick)="rightClickElem($event)">
+            </app-bomb>
         </div>
     </div>
 </div>
