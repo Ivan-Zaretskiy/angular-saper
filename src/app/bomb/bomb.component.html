@@ -1,4 +1,8 @@
-<div class="bomb_area hidden-mode" (click)="leftClickBomb($event)" (contextmenu)="rightClickBomb($event)">
+<div class="bomb_area" [ngClass]="{'none-bg': cellDisplay == cellDisplayEnum.None,
+'visible-bg': cellDisplay == cellDisplayEnum.Visible,
+'bomb-bg': cellDisplay == cellDisplayEnum.Bomb,
+'flag-bg': cellDisplay == cellDisplayEnum.Flag
+}" (click)="leftClickBomb($event)" (contextmenu)="rightClickBomb($event)">
     <div class="count-text d-flex justify-content-center align-items-center">
         <span></span>
     </div>

@@ -6,10 +6,11 @@ import {BombPosition} from '../bomb-position/bomb-position';
     styleUrls: ['./bomb.component.css']
 })
 export class BombComponent implements OnInit {
-    public positionBomb!: BombPosition;
     @Output() public EventOnLeftClick: EventEmitter<BombPosition> = new EventEmitter();
     @Output() public EventOnRightClick: EventEmitter<BombPosition> = new EventEmitter();
-
+    public positionBomb!: BombPosition;
+    public cellDisplayEnum: typeof cellDisplay = cellDisplay;
+    public cellDisplay :cellDisplay = cellDisplay.None;
 
     constructor() { }
 
@@ -30,4 +31,7 @@ export class BombComponent implements OnInit {
         event.preventDefault();
         this.EventOnRightClick.emit(this.positionBomb);
     }
+}
+export enum cellDisplay{
+    None,Visible,Bomb, Flag
 }

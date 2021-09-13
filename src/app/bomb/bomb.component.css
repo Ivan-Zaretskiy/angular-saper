@@ -1,24 +1,41 @@
-.bomb_area{
+.bomb_area {
     position: relative;
     width: 30px;
     height: 30px;
 }
+
 .count-text {
     position: relative;
-    color: blue;
+    color: #1c1b1b;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
 }
-.hidden-mode {
-    border: 3px outset black;
+
+.none-bg {
+    border: 3px outset #5e5c5c;
     background-image: none;
     background-color: #bbbbbb;
 }
-.visible-mode {
+.visible-bg {
     font-size: 15px;
-    border: 3px solid black;
+    border: 3px outset #5e5c5c;
     background-image: none;
-    border-color: #e6e6e6;
+    background-color: #fff;
+    color: black;
+}
+
+.bomb-bg {
+    background-image: url("../../img/bomb.png");
+    background-size: 100% 100%;
+    background-color: #db1515;
+    border: 3px outset #5e5c5c;
+}
+
+.flag-bg {
+    background-image: url("../../img/flag.png");
+    background-size: 100% 100%;
+    border: 3px outset #5e5c5c;
+    /*background-color: #1ea830;*/
 }
