@@ -75,7 +75,6 @@ export class BordOfGameComponent implements OnInit, AfterViewInit   {
     private allCellToArray():void{
         this.arrayWithCell = new Array<BombComponent[]>(this.sizeGame);
         for (let row: number = 0; row < this.sizeGame; row++){
-            // @ts-ignore
             this.arrayWithCell[row] = new Array<BombComponent>(this.sizeGame);
         }
         // @ts-ignore
@@ -84,8 +83,36 @@ export class BordOfGameComponent implements OnInit, AfterViewInit   {
 
     private bombNearCells(bombs: BombPosition[]) {
         bombs.forEach(cell => this.arrayWithCell[cell.row][cell.column].createBomb())
+        const n : number = this.sizeGame - 1;
         bombs.forEach(cell =>{
-
+            let row = cell.row;
+            let col = cell.column;
+            console.log("ROW:" + row + "\nCOLUMN:" + col);
+            if (row > 0 && col > 0) {console.log('1');
+                this.arrayWithCell[cell.row - 1][cell.column - 1].addNearBombCount();
+            }
+            if (row > 0) {console.log('2');
+                this.arrayWithCell[cell.row - 1][cell.column].addNearBombCount();
+            }
+            if (row > 0 && col < n){console.log('3');
+                this.arrayWithCell[cell.row - 1][cell.column + 1].addNearBombCount();
+            }
+            if (col > 0){console.log('4');
+                this.arrayWithCell[cell.row][cell.column - 1].addNearBombCount();
+            }
+            if (col < n){console.log('5');
+                this.arrayWithCell[cell.row][cell.column + 1].addNearBombCount();
+            }
+            if (row < n && col > 0){console.log('6');
+                this.arrayWithCell[cell.row + 1][cell.column - 1].addNearBombCount();
+            }
+            if (row < n){console.log('7');
+                this.arrayWithCell[cell.row + 1][cell.column].addNearBombCount();
+            }
+            if (row < n && col < n){console.log('8');
+                this.arrayWithCell[cell.row + 1][cell.column + 1].addNearBombCount();
+            }
+            console.log("DONE");
         })
     }
 

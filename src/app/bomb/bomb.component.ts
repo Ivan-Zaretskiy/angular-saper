@@ -40,6 +40,12 @@ export class BombComponent implements OnInit {
     public isBomb(){
         return this.cellNumberStatus < 0;
     }
+
+    public addNearBombCount(){
+        if (!this.isBomb()){
+            this.cellNumberStatus++;
+        }
+    }
 }
 export enum cellDisplay{
     None,Visible,Bomb, Flag
