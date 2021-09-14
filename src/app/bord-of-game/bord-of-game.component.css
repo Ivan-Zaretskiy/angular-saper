@@ -1,5 +1,12 @@
 .status-game{
     font-size: 20px;
-    margin-left: 70%;
     white-space: nowrap;
+    text-align: center;
+    background-color: #bf0e0e;
+    border: 1px dashed black;
+    font-weight: 800!important;
+    border-radius: 5px;
+}
+.status-game:hover{
+    font-size: 22px;
 }

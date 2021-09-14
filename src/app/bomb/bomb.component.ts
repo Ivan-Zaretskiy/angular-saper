@@ -9,6 +9,7 @@ export class BombComponent implements OnInit {
     @Output() public EventOnLeftClick: EventEmitter<BombPosition> = new EventEmitter();
     @Output() public EventOnRightClick: EventEmitter<BombPosition> = new EventEmitter();
     public positionBomb!: BombPosition;
+    public cellNumberStatus: number = 0;
     public cellDisplayEnum: typeof cellDisplay = cellDisplay;
     public cellDisplay :cellDisplay = cellDisplay.None;
 
@@ -30,6 +31,10 @@ export class BombComponent implements OnInit {
     public rightClickBomb(event:any){
         event.preventDefault();
         this.EventOnRightClick.emit(this.positionBomb);
+    }
+
+    public createBomb(){
+        this.cellNumberStatus = -1;
     }
 }
 export enum cellDisplay{
