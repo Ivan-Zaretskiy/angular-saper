@@ -26,11 +26,21 @@ export class BordOfGameComponent implements OnInit, AfterViewInit   {
     }
 
     leftClickElem(bombPos: BombPosition) {
-        if (this.gameStatus == gameStatus.Start){
-            this.gameStatus = gameStatus.In_Progress;
-            let bombs : BombPosition[] = this.randomBombForStart(bombPos);
-            this.bombNearCells(bombs);
-            console.log(bombs);
+        if (this.gameStatus !== gameStatus.End) {
+            if (this.gameStatus == gameStatus.Start) {
+                this.gameStatus = gameStatus.In_Progress;
+                let bombs: BombPosition[] = this.randomBombForStart(bombPos);
+                this.bombNearCells(bombs);
+            }
+            const cell = this.arrayWithCell[bombPos.row][bombPos.column];
+            if (cell.cellDisplay == cellDisplay.Flag){
+                this.bombLeft++;
+            }
+            if (cell.isBomb()) {
+                cell.cellDisplay = cellDisplay.Bomb
+            } else {
+                cell.cellDisplay = cellDisplay.Visible;
+            }
         }
     }
 

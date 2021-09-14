@@ -10,3 +10,9 @@
 .status-game:hover{
     font-size: 22px;
 }
+.bomb-left,
+.timer-game{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+}

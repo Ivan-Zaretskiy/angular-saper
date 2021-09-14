@@ -36,6 +36,10 @@ export class BombComponent implements OnInit {
     public createBomb(){
         this.cellNumberStatus = -1;
     }
+
+    public isBomb(){
+        return this.cellNumberStatus < 0;
+    }
 }
 export enum cellDisplay{
     None,Visible,Bomb, Flag
