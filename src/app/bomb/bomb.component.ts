@@ -33,6 +33,10 @@ export class BombComponent implements OnInit {
         this.EventOnRightClick.emit(this.positionBomb);
     }
 
+    public isVisibleDisplay(){
+        return this.cellDisplay == cellDisplay.Visible && this.cellNumberStatus > 0;
+    }
+
     public createBomb(){
         this.cellNumberStatus = -1;
     }
@@ -45,6 +49,11 @@ export class BombComponent implements OnInit {
         if (!this.isBomb()){
             this.cellNumberStatus++;
         }
+    }
+
+    public resetParam(){
+        this.cellNumberStatus = 0;
+        this.cellDisplay = cellDisplay.None;
     }
 }
 export enum cellDisplay{

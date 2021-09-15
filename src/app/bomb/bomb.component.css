@@ -15,33 +15,37 @@
 .count-text span{
     font-weight: 900;
     font-size: 18px;
+    background-color: #d2d2d2;
+    width: 100%;
+    text-align: center;
+    height: 100%;
 }
 
 .none-bg {
     border: 3px outset #5e5c5c;
     background-image: none;
-    background-color: #bbbbbb;
+    background-color: #807c7c;
 }
 .visible-bg {
     font-size: 15px;
     border: 3px outset #5e5c5c;
     background-image: none;
-    background-color: #fff;
+    background-color: #f9f3f3;
     color: black;
 }
 
 .bomb-bg {
-    background-image: url("../../img/bomb2.png");
+    background-image: url("../../img/bomb.png");
     background-size: 100% 100%;
-    background-color: #118b2f;
+    background-color: #ab0e0e;
     border: 3px outset #5e5c5c;
 }
 
 .flag-bg {
-    background-image: url("../../img/flag2.png");
+    background-image: url("../../img/flag.png");
     background-size: 100% 100%;
     border: 3px outset #5e5c5c;
-    background-color: #c0bc0d;
+    background-color: #2a808e;
 }
 
 @media screen and (max-width: 800px) {

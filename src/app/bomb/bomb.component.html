@@ -3,7 +3,7 @@
 'bomb-bg': cellDisplay == cellDisplayEnum.Bomb,
 'flag-bg': cellDisplay == cellDisplayEnum.Flag
 }" (click)="leftClickBomb($event)" (contextmenu)="rightClickBomb($event)">
-    <div class="count-text d-flex justify-content-center align-items-center">
-        <span></span>
+    <div class="count-text d-flex justify-content-center align-items-center" *ngIf="isVisibleDisplay()">
+        <span>{{cellNumberStatus}}</span>
     </div>
 </div>
