@@ -12,7 +12,7 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
     public arrayWithCell!: BombComponent[][];
     public title: string = 'Click To Start';
     public sizeGame: number = 16;
-    public bombCount: number = 40;
+    public bombCount: number = Math.ceil(Math.pow(this.sizeGame,2) / 6.4);
     public bombLeftFlag: number = this.bombCount;
     public leftToWin: number = this.bombCount;
     public gameStatus: gameStatus = gameStatus.Start;
