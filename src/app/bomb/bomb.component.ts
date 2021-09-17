@@ -55,6 +55,10 @@ export class BombComponent implements OnInit {
         this.cellNumberStatus = 0;
         this.cellDisplay = cellDisplay.None;
     }
+
+    public isEmptyCell(){
+        return this.cellNumberStatus == 0;
+    }
 }
 export enum cellDisplay{
     None,Visible,Bomb, Flag

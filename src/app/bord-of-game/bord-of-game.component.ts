@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, OnInit, QueryList, ViewChildren, Input} from '@angular/core';
-import { BombPosition, gameStatus } from '../bomb-position/bomb-position';
-import { BombComponent, cellDisplay } from "../bomb/bomb.component";
+import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {BombPosition, gameStatus} from '../bomb-position/bomb-position';
+import {BombComponent, cellDisplay} from "../bomb/bomb.component";
 
 @Component({
     selector: 'app-bord-of-game',
@@ -45,6 +45,9 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
                 this.endGame(false);
             } else {
                 cell.cellDisplay = cellDisplay.Visible;
+                if (cell.isEmptyCell()){
+                    this.openAllEmptyCell(bombPos);
+                }
             }
         }
     }
@@ -81,7 +84,7 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
                     Math.floor(Math.random() * this.sizeGame),
                     Math.floor(Math.random() * this.sizeGame)
                 );
-            } while (bombs.findIndex(bomb => bomb.existIn(bombElem)) >= 0)
+            } while (bombs.findIndex(bomb => bomb.existIn(bombElem)) >= 0 || bombPos.checkForEmptyRowNearCell(bombElem))
             bombs.push(bombElem);
         }
         return bombs;
@@ -157,7 +160,70 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
             );
         }
     }
+
+    private openAllEmptyCell(clickPos: BombPosition) {
+        const cellsToOpen: BombPosition[] = [clickPos];
+        const n = this.sizeGame - 1;
+        while (cellsToOpen.length > 0){
+            let cell = cellsToOpen.shift();
+            if (cell !== undefined){
+                let row = cell.row;
+                let col = cell.column;
+                if (this.arrayWithCell[row][col].isEmptyCell()){
+                    if (row > 0 && col > 0) {
+                        if (!this.arrayWithCell[row - 1][col - 1].isBomb() && this.arrayWithCell[row - 1][col - 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row - 1][col - 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row - 1,col - 1));
+                        }
+                    }
+                    if (row > 0) {
+                        if (!this.arrayWithCell[row - 1][col].isBomb() && this.arrayWithCell[row - 1][col].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row - 1][col].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row - 1,col));
+                        }
+                    }
+                    if (row > 0 && col < n) {
+                        if (!this.arrayWithCell[row - 1][col + 1].isBomb() && this.arrayWithCell[row - 1][col + 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row - 1][col + 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row - 1,col + 1));
+                        }
+                    }
+                    if (col > 0) {
+                        if (!this.arrayWithCell[row][col - 1].isBomb() && this.arrayWithCell[row][col - 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row][col - 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row,col - 1));
+                        }
+                    }
+                    if (col < n) {
+                        if (!this.arrayWithCell[row][col + 1].isBomb() && this.arrayWithCell[row][col + 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row][col + 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row,col + 1));
+                        }
+                    }
+                    if (row < n && col > 0) {
+                        if (!this.arrayWithCell[row + 1][col - 1].isBomb() && this.arrayWithCell[row + 1][col - 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row + 1][col - 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row + 1,col - 1));
+                        }
+                    }
+                    if (row < n) {
+                        if (!this.arrayWithCell[row + 1][col].isBomb() && this.arrayWithCell[row + 1][col].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row + 1][col].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row + 1,col));
+                        }
+                    }
+                    if (row < n && col < n) {
+                        if (!this.arrayWithCell[row + 1][col + 1].isBomb() && this.arrayWithCell[row + 1][col + 1].cellDisplay == cellDisplay.None){
+                            this.arrayWithCell[row + 1][col + 1].cellDisplay = cellDisplay.Visible;
+                            cellsToOpen.push(new BombPosition(row + 1,col + 1));
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
 export enum backgroundStatus{
     Normal,Blood,Stars
 }
