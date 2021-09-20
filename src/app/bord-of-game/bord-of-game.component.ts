@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {BombPosition, gameStatus} from '../bomb-position/bomb-position';
 import {BombComponent, cellDisplay} from "../bomb/bomb.component";
+import { interval, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-bord-of-game',
@@ -8,17 +9,19 @@ import {BombComponent, cellDisplay} from "../bomb/bomb.component";
     styleUrls: ['./bord-of-game.component.css']
 })
 export class BordOfGameComponent implements OnInit, AfterViewInit {
-    @ViewChildren("cell") public cellList!: QueryList<BombPosition>;
-    public arrayWithCell!: BombComponent[][];
+    @ViewChildren("cell") public cellList!: QueryList<BombComponent>;
+    public arrayWithCell: BombComponent[][] = [];
     public title: string = 'Click To Start';
     public sizeGame: number = 16;
-    public bombCount: number = Math.ceil(Math.pow(this.sizeGame,2) / 6.4);
+    public bombCount: number = Math.ceil(Math.pow(this.sizeGame, 2) / 6.4);
     public bombLeftFlag: number = this.bombCount;
     public leftToWin: number = this.bombCount;
     public gameStatus: gameStatus = gameStatus.Start;
     public backgroundStatusEnum: typeof backgroundStatus = backgroundStatus;
-    public gameBg : backgroundStatus = backgroundStatus.Normal;
-    public sec : number = 0
+    public gameBg: backgroundStatus = backgroundStatus.Normal;
+    public sec: number = 0
+    public observable = interval(1000);
+    public subscription: Subscription = new Subscription;
     constructor() {
     }
 
@@ -33,6 +36,7 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
             if (this.gameStatus == gameStatus.Start) {
                 this.gameStatus = gameStatus.In_Progress;
                 this.title = 'Good Luck ^_^';
+                this.subscription = this.observable.subscribe(x => this.sec = x);
                 let bombs: BombPosition[] = this.randomBombForStart(bombPos);
                 this.bombNearCells(bombs);
             }
@@ -95,8 +99,11 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
         for (let row: number = 0; row < this.sizeGame; row++) {
             this.arrayWithCell[row] = new Array<BombComponent>(this.sizeGame);
         }
-        // @ts-ignore
-        this.cellList.forEach(elem => (this.arrayWithCell[elem.positionBomb.row][elem.positionBomb.column] = elem));
+        this.cellList.forEach(elem => {
+            if (elem.positionBomb !== undefined) {
+                this.arrayWithCell[elem.positionBomb.row][elem.positionBomb.column] = elem;
+            }
+        })
     }
 
     private bombNearCells(bombs: BombPosition[]) {
@@ -134,6 +141,8 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
 
     public startGame() {
         if (this.gameStatus !== gameStatus.Start) {
+            this.subscription.unsubscribe();
+            this.sec = 0;
             this.gameBg = backgroundStatus.Normal;
             this.gameStatus = gameStatus.Start;
             this.leftToWin = this.bombCount;
@@ -145,6 +154,7 @@ export class BordOfGameComponent implements OnInit, AfterViewInit {
 
     private endGame(success: boolean): void {
         this.gameStatus = gameStatus.End;
+        this.subscription.unsubscribe();
         if (success) {
             this.gameBg = backgroundStatus.Stars;
             this.title = 'You Won! Try Again?'

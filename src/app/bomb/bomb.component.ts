@@ -8,7 +8,7 @@ import {BombPosition} from '../bomb-position/bomb-position';
 export class BombComponent implements OnInit {
     @Output() public EventOnLeftClick: EventEmitter<BombPosition> = new EventEmitter();
     @Output() public EventOnRightClick: EventEmitter<BombPosition> = new EventEmitter();
-    public positionBomb!: BombPosition;
+    public positionBomb?: BombPosition;
     public cellNumberStatus: number = 0;
     public cellDisplayEnum: typeof cellDisplay = cellDisplay;
     public cellDisplay :cellDisplay = cellDisplay.None;
